@@ -1,4 +1,4 @@
-ARG JDK_VERSION
+ARG JDK_VERSION=19-jdk
 
 FROM openjdk:${JDK_VERSION}-alpine
 

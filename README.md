@@ -64,7 +64,7 @@ version: '3.6'
 services:
     maven:
         build:
-            context: https://github.com/yannoff/docker-maven.git#<version>:/
+            context: https://github.com/yannoff/docker-maven.git#3.8/openjdk/19:/
             args:
                 MAVEN_VERSION: 3.6.3
 
@@ -74,7 +74,7 @@ services:
 
 Name|Default|Description
 ---|---|---
-JDK_VERSION | `none` | The OpenJDK base image major version to extend from _(eg: `16` for `openjdk:16-alpine`)_
+JDK_VERSION | `19-jdk` | The OpenJDK base image major version to extend from _(eg: `16` for `openjdk:16-alpine`)_
 MAVEN_HOME | `usr/share/maven` | Maven binary install directory
 MAVEN_VERSION | `3.8.5` |Exact version of the maven binary
 MAVEN_MIRROR | https://dlcdn.apache.org | Base repository URL for maven binaries download
