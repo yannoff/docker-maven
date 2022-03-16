@@ -1,4 +1,4 @@
-ARG JDK_VERSION
+ARG JDK_VERSION=18-jdk
 
 FROM openjdk:${JDK_VERSION}-alpine
 
