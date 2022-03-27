@@ -28,7 +28,7 @@ _Pre-compiled image are convenient to run on-the-fly maven commands._
 _Example: Running a mvn task on the current directory_
 
 ```bash
-docker run --rm -it -v $PWD:/workspace -v ~/.m2:/root/.m2 yannoff/maven:3.8-openjdk-16 deploy
+docker run --rm -it -v $PWD:/workspace -v ~/.m2:/home/user/.m2 yannoff/maven:3.8-openjdk-16 deploy
 ```
 
 ## Customized build
@@ -52,7 +52,7 @@ Name|Default|Description
 ---|---|---
 JDK_VERSION | `none` | The OpenJDK base image major version to extend from _(eg: `16` for `openjdk:16-alpine`)_
 MAVEN_VERSION | `3.8.5` |Exact version of the maven binary
-USER_HOME | `/root` |
+HOME | `/home/user` |
 MAVEN_MIRROR | [`dlcdn.apache.org`](https://dlcdn.apache.org/) | Base repository URL for maven binaries download
 APK_PACKAGES |`bash findutils git` | Base APK package set to be bundled in the image
 MAVEN_HOME | `usr/share/maven` | Maven binary install directory

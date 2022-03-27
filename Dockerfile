@@ -3,7 +3,7 @@ ARG JDK_VERSION
 FROM openjdk:${JDK_VERSION}-alpine
 
 ARG MAVEN_VERSION=3.8.5
-ARG USER_HOME=/root
+ARG HOME=/home/user
 #ARG MAVEN_MIRROR=apache.osuosl.org
 ARG MAVEN_MIRROR=dlcdn.apache.org
 
@@ -13,10 +13,11 @@ ARG LANG=C.UTF-8
 ARG WORKDIR=/workspace
 
 ENV MAVEN_HOME ${MAVEN_HOME}
-ENV MAVEN_CONFIG ${USER_HOME}/.m2
+ENV MAVEN_CONFIG ${HOME}/.m2
 ENV MAVEN_REPOSITORY=https://${MAVEN_MIRROR}/maven/maven-3
 ENV WORKDIR ${WORKDIR}
 
+ENV HOME ${HOME}
 ENV LANG ${LANG}
 ENV MUSL_LOCPATH /usr/share/i18n/locales/musl
 
@@ -39,13 +40,14 @@ RUN \
     echo "${maven_sha512}  ${tarball}" | sha512sum -c - && \
     tar -xzf ${tarball} -C ${MAVEN_HOME} --strip-components=1 && \
     rm -f ${tarball} && \
-    ln -s ${MAVEN_HOME}/bin/mvn /usr/bin/mvn \
+    ln -s ${MAVEN_HOME}/bin/mvn /usr/bin/mvn && \
+    [ -d ${HOME} ] || mkdir -p ${HOME} \
     ;
 
 COPY mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
 COPY settings-docker.xml ${MAVEN_HOME}/ref/
 
-VOLUME ${WORKDIR}
+VOLUME ${HOME} ${WORKDIR}
 WORKDIR ${WORKDIR}
 
 ENTRYPOINT ["/usr/local/bin/mvn-entrypoint.sh"]
