@@ -1,4 +1,5 @@
 /.git*
+/doc
 /publish
 /LICENSE
 /README.md

@@ -1,6 +1,6 @@
 # yannoff/docker-maven
 
-A set of Alpine-based version of maven docker images.
+A set of Alpine-based version of [maven](https://maven.apache.org/) docker images.
 
 ## Precompiled images
 
@@ -28,7 +28,29 @@ _Pre-compiled image are convenient to run on-the-fly maven commands._
 _Example: Running a mvn task on the current directory_
 
 ```bash
-docker run --rm -it -v $PWD:/workspace -v ~/.m2:/root/.m2 yannoff/maven:3.8-openjdk-16 deploy
+docker run --rm -it -v $PWD:/workspace -v ~/.m2:/root/.m2 yannoff/maven:3.8-openjdk-16 mvn deploy
+```
+
+### Note on the `.m2` dir
+
+_Maven assumes the .m2 directory is always in `${user.home}/.m2` path._
+
+_So the place of this directory mount in the container is crucial for `maven` to find id._
+
+#### Example: running as `root`
+
+The `HOME` environment variable is set to `/root`, so:
+
+```bash
+docker run -v ~/.m2:/root/.m2 ...
+```
+
+#### Example: running as an arbitrary user
+
+Given the user is unknwon to the system, `HOME` is set to `/`:
+
+```bash
+docker run -u 1000:1000 -v ~/.m2:/.m2 ...
 ```
 
 ## Customized build
