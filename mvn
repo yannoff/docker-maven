@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# Wrapper script for the original mvn executable
+#
+# Set the correct ${user.home} options using the dedicated env var
+#
+
+${MAVEN_HOME}/bin/mvn -Duser.home=${HOME} "$@"

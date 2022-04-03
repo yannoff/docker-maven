@@ -52,7 +52,6 @@ Name|Default|Description
 ---|---|---
 JDK_VERSION | `none` | The OpenJDK base image major version to extend from _(eg: `16` for `openjdk:16-alpine`)_
 MAVEN_VERSION | `3.8.5` |Exact version of the maven binary
-USER_HOME | `/root` |
 MAVEN_MIRROR | https://dlcdn.apache.org/maven/maven-3 | Base repository URL for maven binaries download
 APK_PACKAGES |`bash findutils git` | Base APK package set to be bundled in the image
 MAVEN_HOME | `usr/share/maven` | Maven binary install directory
@@ -61,7 +60,7 @@ WORKDIR | `/workspace` | Working directory of the built image
 
 ## Credits
 
-This work is derived from the [carlossg/docker-maven](https://github.com/carlossg/docker-maven) official repository sources.
+This work was inspired by the [carlossg/docker-maven](https://github.com/carlossg/docker-maven) official repository sources.
 
 ## License
 
