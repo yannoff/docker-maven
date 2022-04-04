@@ -47,4 +47,3 @@ VOLUME ${WORKDIR}
 WORKDIR ${WORKDIR}
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
-CMD ["mvn"]
