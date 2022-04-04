@@ -3,7 +3,7 @@ ARG JDK_VERSION
 FROM openjdk:${JDK_VERSION}-alpine
 
 ARG MAVEN_VERSION=3.8.5
-ARG MAVEN_MIRROR=https://dlcdn.apache.org/maven/maven-3
+ARG MAVEN_MIRROR=https://dlcdn.apache.org
 
 ARG APK_PACKAGES='bash findutils git'
 ARG MAVEN_HOME=/usr/share/maven
@@ -17,8 +17,10 @@ ENV LANG ${LANG}
 ENV MUSL_LOCPATH /usr/share/i18n/locales/musl
 
 RUN \
-    binary=${MAVEN_MIRROR}/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz && \
-    sha512=${MAVEN_MIRROR}/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz.sha512 && \
+    major=${MAVEN_VERSION%%.*} && \
+    baseuri=${MAVEN_MIRROR}/maven/maven-${major} && \
+    binary=${baseuri}/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz && \
+    sha512=${baseuri}/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz.sha512 && \
     tarball=/tmp/maven.tgz && \
     apk add --no-cache \
         curl \
