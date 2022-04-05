@@ -1,29 +1,44 @@
 #!/bin/bash
 
 latest=19
+image=yannoff/maven
 
 [ $# -eq 0 ] && set -- 16 17 18 19
 
 for jdk in "$@"
 do
-    #git checkout 3.8/openjdk/${jdk}
+    tags=( 3.8.5-openjdk-${jdk}-alpine 3.8.5-openjdk-${jdk} 3.8-openjdk-${jdk} 3-openjdk-${jdk} )
 
-    docker build --build-arg JDK_VERSION=${jdk} -t yannoff/maven:${jdk}-jdk ./
+    docker build \
+        --build-arg JDK_VERSION=${jdk} \
+        -t ${image}:${jdk}-jdk \
+        ./
 
     if [ "$?" != "0" ]
     then
-        echo "[publish] Building base image yannoff/maven:${jdk}-jdk failed. Exiting"
+        echo "[publish] Building base image ${image}:${jdk}-jdk failed. Exiting"
         exit 1
     fi
 
-    for tag in 3.8.5-openjdk-${jdk}-alpine 3.8.5-openjdk-${jdk} 3.8-openjdk-${jdk}
+    for tag in "${tags[@]}"
     do
-        docker tag yannoff/maven:${jdk}-jdk yannoff/maven:${tag}
-        docker push -q yannoff/maven:${tag}
+        docker tag ${image}:${jdk}-jdk ${image}:${tag}
+        docker push -q ${image}:${tag}
     done
 
-    #git checkout -
+    if [ "${jdk}" = "${latest}" ]
+    then
+        docker tag ${image}:${jdk}-jdk ${image}:latest
+        docker push -q ${image}:latest
+        docker rmi -f ${image}:latest
+    fi
+
+    for tag in ${jdk}-jdk "${tags[@]}"
+    do
+         docker rmi -f ${image}:${tag}
+    done
+    docker rmi -f openjdk:${jdk}-alpine
+
 done
 
-docker tag yannoff/maven:${latest}-jdk yannoff/maven:latest
-docker push -q yannoff/maven:latest
+
