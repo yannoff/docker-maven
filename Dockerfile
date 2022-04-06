@@ -5,7 +5,7 @@ FROM openjdk:${JDK_VERSION}-alpine
 ARG MAVEN_VERSION=3.8.5
 ARG MAVEN_MIRROR=https://dlcdn.apache.org
 
-ARG APK_PACKAGES='bash findutils git openssh'
+ARG APK_PACKAGES='bash git openssh'
 ARG MAVEN_HOME=/usr/share/maven
 ARG LANG=C.UTF-8
 ARG WORKDIR=/workspace
