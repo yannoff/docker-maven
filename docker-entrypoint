@@ -4,6 +4,9 @@
 # purpose, since this is not recognized by maven
 export USER_HOME=${HOME}
 
+# Load maven specific env vars
+source /etc/profile.d/maven-env.sh
+
 # Giving an insight on env settings 
 echo -e "\e[01mEnvironment:\e[00m" >&2
 env | sort >&2

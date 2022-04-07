@@ -36,6 +36,8 @@ RUN \
     maven_sha512=$(curl -fsSL ${sha512}) && \
     echo "${maven_sha512}  ${tarball}" | sha512sum -c - && \
     tar -xzf ${tarball} -C ${MAVEN_HOME} --strip-components=1 && \
+    echo "export MAVEN_URL=${binary}" >> /etc/profile.d/maven-env.sh && \
+    echo "export MAVEN_SHA512=${maven_sha512}" >> /etc/profile.d/maven-env.sh && \
     rm -f ${tarball} \
     ;
 
