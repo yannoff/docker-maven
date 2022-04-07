@@ -73,10 +73,10 @@ services:
 Name|Default|Description
 ---|---|---
 JDK_VERSION | `none` | The OpenJDK base image major version to extend from _(eg: `16` for `openjdk:16-alpine`)_
+MAVEN_HOME | `usr/share/maven` | Maven binary install directory
 MAVEN_VERSION | `3.8.5` |Exact version of the maven binary
 MAVEN_MIRROR | https://dlcdn.apache.org | Base repository URL for maven binaries download
 APK_PACKAGES |`bash git openssh` | Base APK package set to be bundled in the image
-MAVEN_HOME | `usr/share/maven` | Maven binary install directory
 LANG | `C.UTF-8` | Initial value for the `LANG` env var
 WORKDIR | `/workspace` | Working directory of the built image
 
