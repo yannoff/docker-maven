@@ -29,7 +29,7 @@ RUN \
         libxml2-dev \
         musl-locales \
         ${APK_PACKAGES} && \
-    mkdir -p ${MAVEN_HOME} ${MAVEN_HOME}/ref && \
+    mkdir -p ${MAVEN_HOME} && \
     echo "curl -fsSL -o ${tarball} ${binary}" && \
     curl -fsSL -o ${tarball} ${binary} && \
     echo "curl -fsSL ${sha512}" && \
@@ -42,7 +42,6 @@ RUN \
     ;
 
 COPY docker-entrypoint /usr/local/bin/docker-entrypoint
-COPY settings-docker.xml ${MAVEN_HOME}/ref/
 COPY mvn /usr/bin
 
 VOLUME ${WORKDIR}
