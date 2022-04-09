@@ -38,6 +38,7 @@ RUN \
     tar -xzf ${tarball} -C ${MAVEN_HOME} --strip-components=1 && \
     echo "export MAVEN_URL=${binary}" >> /etc/profile.d/maven-env.sh && \
     echo "export MAVEN_SHA512=${maven_sha512}" >> /etc/profile.d/maven-env.sh && \
+    echo "export MAVEN_M2DIR=\$HOME/.m2" >> /etc/profile.d/maven-env.sh && \
     rm -f ${tarball} \
     ;
 
