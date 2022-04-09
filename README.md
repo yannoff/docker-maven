@@ -33,16 +33,18 @@ docker run --rm -it -v $PWD:/workspace -v ~/.m2:/root/.m2 yannoff/maven:3.8-open
 
 ### Note on the `.m2` dir
 
-_Maven assumes the .m2 directory is always in `${user.home}/.m2` path._
+Maven expects the `.m2` directory to be located in the `${user.home}/.m2` path.
 
-_So the place of this directory mount in the container is crucial for `maven` to find id._
+The `mvn` wrapper script bundled in the maven images automatically prepend arguments with the correct `-Duser.home` value, making it easier to run commands as non-root users.
+
+_Anyway the directory must be mounted accordingly in the container._
 
 #### Example: running as `root`
 
-The `HOME` environment variable is set to `/root`, so:
+The `HOME` environment variable is set to `/root`:
 
 ```bash
-docker run -v ~/.m2:/root/.m2 ...
+docker run -v /path/to/.m2:/root/.m2 ...
 ```
 
 #### Example: running as an arbitrary user
@@ -50,7 +52,7 @@ docker run -v ~/.m2:/root/.m2 ...
 Given the user is unknwon to the system, `HOME` is set to `/`:
 
 ```bash
-docker run -u 1000:1000 -v ~/.m2:/.m2 ...
+docker run -u 1000:1000 -v /path/to/.m2:/.m2 ...
 ```
 
 ## Customized build
@@ -79,6 +81,18 @@ MAVEN_MIRROR | https://dlcdn.apache.org | Base repository URL for maven binaries
 APK_PACKAGES |`bash git openssh` | Base APK package set to be bundled in the image
 LANG | `C.UTF-8` | Initial value for the `LANG` env var
 WORKDIR | `/workspace` | Working directory of the built image
+
+### Environment variable
+
+Name|Description
+---|---
+DEBUG | If set, make the entrypoint verbose
+LANG | Initial value for the `LANG` env var
+WORKDIR | Working directory of the built image
+MAVEN_HOME | Maven binary install directory
+MAVEN_SHA512 | SHA 512 checksum of the maven binary tarball
+MAVEN_URL | Download URL of the maven binary tarball
+MAVEN_M2DIR | Path to the `.m2` directory
 
 ## Credits
 
